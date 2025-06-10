@@ -6,6 +6,18 @@ jobs:
   firstjob:
     runs-on: ubuntu-latest
 
+    services:
+      redis:
+        image: redis
+        ports:
+          - 6379:6379
+
     steps:
-      - name: Print variable
-        run: echo "${{ vars.NAME }}"
+      - name: Install redis cli
+        run: apt get update -y && apt-get install redis-tools -y
+
+      - name: Test redis
+        run: redis-cli -h localhost -p 6379 ping
+    
+        
+    
